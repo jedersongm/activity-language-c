@@ -5,12 +5,7 @@ final na tela os valores em ordem.
 */
 
 #include <stdio.h>
-<<<<<<< HEAD
-int used_vector = 0;
-const int size_vector = 10;
-=======
 #include <stdlib.h>
->>>>>>> 0c7b2479f0c069ba4a86bb9cd1cda7fa8791b11b
 
 typedef struct{
   int *data;
