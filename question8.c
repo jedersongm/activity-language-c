@@ -5,7 +5,7 @@ final na tela os valores em ordem.
 */
 
 #include <stdio.h>
-int used_vector;
+int used_vector = 0;
 const int size_vector = 10;
 
 void insertionVector(int vector[], int number){
