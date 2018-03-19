@@ -1,0 +1,19 @@
+#include <stdio.h>
+
+typedef struct{
+    int hora;
+    int minutos;
+    int segundos;
+}Horario;
+
+typedef struct{
+  int dia;
+  int mes;
+  int ano;
+}Data;
+
+typedef struct{
+  Data data;
+  Horario horario;
+  char descricao[250];
+}Compromisso;
