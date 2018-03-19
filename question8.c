@@ -5,52 +5,96 @@ final na tela os valores em ordem.
 */
 
 #include <stdio.h>
+<<<<<<< HEAD
 int used_vector = 0;
 const int size_vector = 10;
+=======
+#include <stdlib.h>
+>>>>>>> 0c7b2479f0c069ba4a86bb9cd1cda7fa8791b11b
 
-void insertionVector(int vector[], int number){
-    //int j, position;
-    if(used_vector == 0){
-      vector[0] = number;
-      used_vector++;
-    }else if(used_vector < size_vector){
+typedef struct{
+  int *data;
+  int size;
+  int used;
+} Vector;
 
-      for(int i = 0; i < used_vector; i++){
-        if(number < vector[i]){
+Vector* vector_create(int size){
 
-          for(int j = used_vector;j < i; j--){
-            vector[j] = vector[j-1];
-          }
+  Vector *v;
 
-          vector[i] = number;
-          used_vector++;
-        }else if(i == used_vector - 1){
-          vector[used_vector] = number;
-          used_vector++;
-        }// fim do "if"
+  if(size <= 0) return NULL;
 
-      }// fim do "for" que pecorre o vetor
+  v = (Vector*)malloc(sizeof(Vector));
 
-    }//end "else"
+  if(v != NULL){
 
-}// end function "insertionVector"
+    v->data = (int*)calloc(size,sizeof(int));
 
-void printerVector(int vector[]){
-  for(int i = 0; i < size_vector; i++)
-    printf("%d\n",vector[i]);
+    if(v->data == NULL){
+      free(v);
+      return NULL;
+    }
+    v->size = size;
+    v->used = 0;
+  }
+  return v;
+}
+
+int vector_insert(Vector *v,int number){
+
+  if(v->used == v->size) return -1;
+
+  if(v->used == 0){
+    v->data[0] = number;
+    v->used++;
+    return 0;
+  }else{
+
+    for(int i = 0; i < v->used; i++){
+
+      if(number < v->data[i]){
+        for(int j = v->used; j > i; j--){
+          v->data[j] = v->data[j-1];
+        }
+        v->data[i] = number;
+        v->used++;
+        return 0;
+      } else if(i== v->used - 1){
+        v->data[v->used] = number;
+        v->used++;
+        return 0;
+      }
+    }
+  }
+
+  return 0;
+}
+
+void vector_printer(Vector *v){
+
+  int pos;
+  printf("v(%d/%d) -> [",v->used,v->size);
+  for(pos = 0; pos < v->used; pos++){
+    printf("%d%s",v->data[pos],(pos < v->used-1)?"-":"");
+  }
+  printf("]\n");
 }
 
 int main(int argc, char const *argv[]) {
   /* code */
-  int vector[10];
+
+  const int size = 10;
+  Vector *v = vector_create(size);
   int number;
 
-  for(int i = 0; i < size_vector; i++){
+  for(int i = 0; i < size; i++){
     printf("Digite um número:");
     scanf("%d",&number);
-    insertionVector(vector,number);
+    vector_insert(v,number);
   }
 
-  printerVector(vector);
+  printf("\n");
+  vector_printer(v);
+
   return 0;
 }
